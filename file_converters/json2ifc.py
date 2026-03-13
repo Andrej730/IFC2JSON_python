@@ -30,9 +30,8 @@ import argparse
 import json
 import ifcjson
 
-start_time = perf_counter()
-
-if __name__ == '__main__':
+def main():
+    start_time = perf_counter()
     parser = argparse.ArgumentParser(
         description='Convert IFC.JSON to SPF')
     parser.add_argument('-i', type=str, help='input json file path')
@@ -52,3 +51,7 @@ if __name__ == '__main__':
         print("Conversion took ", perf_counter()-start_time, " seconds")
     else:
         print(str(args.i) + ' is not a valid file')
+
+
+if __name__ == '__main__':
+    main()

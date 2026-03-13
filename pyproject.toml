@@ -1,0 +1,20 @@
+[project]
+name = "ifcjson"
+version = "0.1.0"
+description = "Python converter between IFC SPF and JSON."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = [
+    "ifcopenshell",
+]
+
+[project.scripts]
+ifc2json = "ifc2json:main"
+json2ifc = "json2ifc:main"
+
+[tool.setuptools]
+package-dir = {"" = "file_converters"}
+packages = ["ifcjson"]
+py-modules = ["ifc2json", "json2ifc"]

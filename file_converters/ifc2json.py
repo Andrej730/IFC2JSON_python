@@ -30,9 +30,9 @@ import argparse
 import json
 import ifcjson
 
-t1_start = perf_counter()
 
-if __name__ == '__main__':
+def main():
+    t1_start = perf_counter()
     parser = argparse.ArgumentParser(
         description='Convert IFC SPF file to IFC.JSON')
     parser.add_argument('-i', type=str, help='input ifc file path')
@@ -95,5 +95,8 @@ if __name__ == '__main__':
             print('Version ' + args.v + ' is not supported')
     else:
         print(str(args.i) + ' is not a valid file')
-t1_stop = perf_counter()
-print("Conversion took ", t1_stop-t1_start, " seconds")
+    print("Conversion took ", perf_counter()-t1_start, " seconds")
+
+
+if __name__ == '__main__':
+    main()
