@@ -123,7 +123,7 @@ class IFC2JSON5a(common.IFC2JSON):
             entityAttributes = entity.__dict__
             entityType = entityAttributes['type']
             if not entityType in ['IfcGeometricRepresentationContext', 'IfcOwnerHistory']:
-                for attr in entity.wrapped_data.get_inverse_attribute_names():
+                for attr in getattr(entity, 'wrapped_data', entity).get_inverse_attribute_names():  # wrapped_data is gone in ifcopenshell 0.9
                     inverseAttribute = getattr(entity, attr)
                     entityAttributes[attr] = self.getAttributeValue(
                         inverseAttribute)
@@ -160,7 +160,7 @@ class IFC2JSON5a(common.IFC2JSON):
         return {
             'type': 'IFC.JSON-5a',
             'version': self.SCHEMA_VERSION,
-            'schemaIdentifier': self.ifcModel.wrapped_data.schema,
+            'schemaIdentifier': self.ifcModel.schema,
             'originatingSystem': 'IFC2JSON_python Version ' + self.VERSION,
             'preprocessorVersion': 'IfcOpenShell ' + ifcopenshell.version,
             'timeStamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),

@@ -121,7 +121,7 @@ class IFC2JSON4(common.IFC2JSON):
             entityType = entityAttributes['type']
             if not entityType == 'IfcOwnerHistory':
                 if not self.INCLUDE_INVERSE:
-                    for attr in entity.wrapped_data.get_inverse_attribute_names():
+                    for attr in getattr(entity, 'wrapped_data', entity).get_inverse_attribute_names():  # wrapped_data is gone in ifcopenshell 0.9
                         inverseAttribute = getattr(entity, attr)
                         attrValue = self.getAttributeValue(inverseAttribute)
                         if not attrValue and attrValue is not False:
@@ -135,7 +135,7 @@ class IFC2JSON4(common.IFC2JSON):
         return {
             'type': 'IFC.JSON',
             'version': self.SCHEMA_VERSION,
-            'schemaIdentifier': self.ifcModel.wrapped_data.schema,
+            'schemaIdentifier': self.ifcModel.schema,
             'originatingSystem': 'IFC2JSON_python Version ' + self.VERSION,
             'preprocessorVersion': 'IfcOpenShell ' + ifcopenshell.version,
             'timeStamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
